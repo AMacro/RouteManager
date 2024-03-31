@@ -91,19 +91,19 @@ namespace RouteManager.v2.dataStructures
             foreach(PassengerStop ps in Branches["main"])
             {
                 //add the current station to the list
-                OrderedStations.Add(ps.name);
+                OrderedStations.Add(ps.identifier);
 
                 //does it have any branches?
-                if(Stations[ps.name].Branches.Count > 0)
+                if(Stations[ps.identifier].Branches.Count > 0)
                 {
-                    Stations[ps.name].Branches.Sort();
+                    Stations[ps.identifier].Branches.Sort();
 
                     //now lets list the stations in each branch
-                    foreach (string branch in Stations[ps.name].Branches)
+                    foreach (string branch in Stations[ps.identifier].Branches)
                     {
                         foreach(PassengerStop station in Branches[branch])
                         {
-                            OrderedStations.Add(station.name);
+                            OrderedStations.Add(station.identifier);
                         }
                     }
                 }
@@ -114,7 +114,7 @@ namespace RouteManager.v2.dataStructures
 
         private static void GetStationData(PassengerStop station, string branch)
         {
-            if(!Stations.ContainsKey(station.name))
+            if(!Stations.ContainsKey(station.identifier))
             {
                 Vector3? pos0 =  station.TrackSpans.First()?.lower?.GetPosition();
                 Vector3? pos1 =  station.TrackSpans.First()?.upper?.GetPosition();
@@ -126,9 +126,9 @@ namespace RouteManager.v2.dataStructures
                     StationMapData data = new StationMapData((float)pos0?.x, (float)pos0?.y, (float)pos0?.z, (float)pos1?.x, (float)pos1?.y, (float)pos1?.z, (float)centre?.x, (float)centre?.y, (float)centre?.z, (float)len);
                     data.Branch = branch;
 
-                    Stations.Add(station.name, data);
+                    Stations.Add(station.identifier, data);
 
-                    RouteManager.logger.LogToDebug($"Station Data {station.name}: {(float)pos0?.x}, {(float)pos0?.y}, {(float)pos0?.z}, {(float)pos1?.x}, {(float)pos1?.y}, {(float)pos1?.z}, {(float)centre?.x}, {(float)centre?.y}, {(float)centre?.z}, {(float)len}");
+                    RouteManager.logger.LogToDebug($"Station Data {station.identifier}: {(float)pos0?.x}, {(float)pos0?.y}, {(float)pos0?.z}, {(float)pos1?.x}, {(float)pos1?.y}, {(float)pos1?.z}, {(float)centre?.x}, {(float)centre?.y}, {(float)centre?.z}, {(float)len}");
                 }
                 
             }
@@ -179,10 +179,10 @@ namespace RouteManager.v2.dataStructures
                     if (neighbourGroupId != branch)
                     {
                         //it's not, so let's check if we are already aware of the conencting branch
-                        if (!Stations[current.name].Branches.Contains(neighbourGroupId))
+                        if (!Stations[current.identifier].Branches.Contains(neighbourGroupId))
                         {
                             //not currently know, add to the list
-                            Stations[current.name].Branches.Add(neighbourGroupId);
+                            Stations[current.identifier].Branches.Add(neighbourGroupId);
                         }
                     }
                 }
