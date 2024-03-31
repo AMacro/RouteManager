@@ -14,6 +14,12 @@ namespace RouteManager.v2.dataStructures
         public Vector3 Center { get; set; }
         public float Length { get; set; }
 
+        //branch this station belongs to
+        public string Branch {  get; set; } 
+
+        //branches connected to this station
+        public List<string> Branches { get; set; }
+
         //Point coordinates of the referenced station in the 3d map space.
         public StationMapData(float x0, float y0, float z0, float x1, float y1, float z1, float xc, float yc, float zc, float len)
         {
@@ -21,6 +27,7 @@ namespace RouteManager.v2.dataStructures
             Pos1 = new Vector3(x1, y1, z1);
             Center = new Vector3(xc, yc, zc);
             Length = len;
+            Branches = new List<string>();
         }
     }
 }
