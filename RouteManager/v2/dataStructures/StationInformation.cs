@@ -123,8 +123,11 @@ namespace RouteManager.v2.dataStructures
 
                 if (pos0 != null && pos1 != null && centre != null && len != null) 
                 {
-                    StationMapData data = new StationMapData((float)pos0?.x, (float)pos0?.y, (float)pos0?.z, (float)pos1?.x, (float)pos1?.y, (float)pos1?.z, (float)centre?.x, (float)centre?.y, (float)centre?.z, (float)len);
+                    bool hardEndOfLine = station.neighbors.Count() <= 1;
+
+                    StationMapData data = new StationMapData((float)pos0?.x, (float)pos0?.y, (float)pos0?.z, (float)pos1?.x, (float)pos1?.y, (float)pos1?.z, (float)centre?.x, (float)centre?.y, (float)centre?.z, (float)len, hardEndOfLine);
                     data.Branch = branch;
+                    data.station = station;
 
                     Stations.Add(station.identifier, data);
 
