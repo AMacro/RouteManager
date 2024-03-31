@@ -94,7 +94,7 @@ namespace RouteManager.v2.dataStructures
                 OrderedStations.Add(ps.identifier);
 
                 //does it have any branches?
-                if(Stations[ps.identifier].Branches.Count > 0)
+                if(Stations[ps.identifier].Branches.Count() > 0)
                 {
                     Stations[ps.identifier].Branches.Sort();
 
